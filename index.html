@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes</title>
+    <!-- loeads data (array of quizzes) accessible as window.quizzesData -->
+    <script id="quizzes-data" src="quizzes-data.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <section id="home-screen">
+        <h2>Quizzes</h2>
+        <ul id="quiz-list"></ul>
+    </section>
+
+    <!-- Single Quiz Detail Screen -->
+    <section id="quiz-detail-screen" class="hidden">
+        <div class="back-btn" onclick="navigateToScreen('home-screen')">← Back</div>
+        <h2 id="quiz-title"></h2>
+        <div id="score">Score: 0/0</div>
+        <div id="progress"></div>
+        <div id="hints-used">Hints used: 0</div>
+        <hr>
+        <div id="question"></div>
+        <div id="options"></div>
+        <button id="hint-btn" onclick="showHint()">Show Hint</button>
+        <div id="hint"></div>
+        <div id="result"></div>
+        <button id="next-btn" onclick="nextQuestion()" style="display:none;">Next Question</button>
+    </section>
+
+    <script>
+        let quizzes = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let hintsUsed = 0;
+        let progress = [];
+        let currentQuiz = null;
+
+        // Universal function to navigate between screens
+        function navigateToScreen(screenId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.add('hidden'));
+
+            // Show the targeted screen
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        // Fetch quiz data from external JSON file
+        function fetchQuizData() {
+            /*fetch('quizzes.json')
+                .then(response => response.json())
+                .then(data => {
+                    quizzes = data;
+                    loadQuizList();
+                })
+                .catch(error => console.error('Error loading quiz data:', error));
+                */
+          quizzes = jsFileQuizzesData;
+          loadQuizList();
+        }
+
+        // Load quiz list on the home screen
+        function loadQuizList() {
+            const quizListElement = document.getElementById('quiz-list');
+            quizListElement.innerHTML = '';
+            quizzes.forEach((quiz, index) => {
+                const quizItem = document.createElement('li');
+                quizItem.innerHTML = `
+                  <button onclick="startQuiz(${index})">
+                      ${quiz.name} 
+                      <span class="quiz-badge">${quiz.questions.length} questions</span>
+                  </button>`;
+                quizListElement.appendChild(quizItem);
+            });
+        }
+
+        // Start selected quiz
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            document.getElementById('quiz-title').textContent = currentQuiz.name;
+            resetQuiz();
+            navigateToScreen('quiz-detail-screen');
+            loadQuestion();
+        }
+
+        // Load current question
+        function loadQuestion() {
+            const q = currentQuiz.questions[currentQuestion];
+            document.getElementById('question').textContent = q.question;
+            const options = document.getElementById('options');
+            options.innerHTML = '';
+            q.options.forEach((option, i) => {
+                options.innerHTML += `<button onclick="checkAnswer(${i})">${option}</button>`;
+            });
+            document.getElementById('hint').textContent = '';
+            document.getElementById('result').textContent = '';
+            document.getElementById('hint-btn').style.display = 'block';
+            document.getElementById('next-btn').style.display = 'none';
+        }
+
+        // Check selected answer
+        function checkAnswer(choice) {
+            const q = currentQuiz.questions[currentQuestion];
+            const resultDiv = document.getElementById('result');
+            if (choice === q.answer) {
+                resultDiv.textContent = "Correct!";
+                score++;
+                progress.push("✓");
+            } else {
+                resultDiv.textContent = `Incorrect. The correct answer is: ${q.options[q.answer]}`;
+                progress.push("✗");
+            }
+            document.getElementById('score').textContent = `Score: ${score}/${currentQuestion + 1}`;
+            document.getElementById('progress').textContent = progress.join(" ");
+            document.getElementById('options').innerHTML = '';
+            document.getElementById('hint-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        // Show hint for the current question
+        function showHint() {
+            document.getElementById('hint').textContent = currentQuiz.questions[currentQuestion].hint;
+            hintsUsed++;
+            document.getElementById('hints-used').textContent = `Hints used: ${hintsUsed}`;
+            document.getElementById('hint-btn').style.display = 'none';
+        }
+
+        // Load the next question
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < currentQuiz.questions.length) {
+                loadQuestion();
+            } else {
+                document.getElementById('question').textContent = "Quiz completed!";
+                document.getElementById('options').innerHTML = '';
+                document.getElementById('hint-btn').style.display = 'none';
+                document.getElementById('next-btn').style.display = 'none';
+                document.getElementById('result').textContent = `Final score: ${score}/${currentQuiz.questions.length}`;
+            }
+        }
+
+        // Reset quiz state
+        function resetQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            hintsUsed = 0;
+            progress = [];
+            document.getElementById('score').textContent = `Score: 0/0`;
+            document.getElementById('progress').textContent = '';
+            document.getElementById('hints-used').textContent = 'Hints used: 0';
+        }
+
+        // Initialize the app by fetching quiz data
+        fetchQuizData();
+    </script>
+</body>
+</html>
