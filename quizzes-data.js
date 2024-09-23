@@ -70,29 +70,9 @@ const jsFileQuizzesData = [
   },
 
   {
-    "name": "quiz 1",
+    "name": "Test quiz 1",
     "created": 1725959880633,
     "tags": ["tag1"],
-    "questions": [
-      {
-        "question": "Question 1",
-        "options": ["option 1", "option 2", "option 3", "option 4"],
-        "answer": 1,
-        "hint": "Hint 1"
-      },
-      {
-        "question": "Question 2",
-        "options": ["option 1", "option 2", "option 3", "option 4"],
-        "answer": 1,
-        "hint": "Hint 2"
-      }
-    ]
-  },
-  
-  {
-    "name": "quiz 2",
-    "created": 1725961545025,
-    "tags": ["tag1", "tag2"],
     "questions": [
       {
         "question": "Question 1",
