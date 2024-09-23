@@ -18,11 +18,12 @@
     <!-- Single Quiz Detail Screen -->
     <section id="quiz-detail-screen" class="hidden">
         <div class="back-btn" onclick="navigateToScreen('home-screen')">← Back</div>
-        <h2 id="quiz-title"></h2>
-        <div id="score">Score: 0/0</div>
-        <div id="progress"></div>
-        <div id="hints-used">Hints used: 0</div>
-        <hr>
+        <h2 id="quiz-title" class="screen-title"></h2>
+        <div id=quiz-info">
+          <div id="score">Score: 0/0</div>
+          <div id="progress"></div>
+          <div id="hints-used">Hints used: 0</div>
+        </div>
         <div id="question"></div>
         <div id="options"></div>
         <button id="hint-btn" onclick="showHint()">Show Hint</button>
