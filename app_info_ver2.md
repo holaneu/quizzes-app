@@ -32,24 +32,28 @@
     - List of items - Each item includes a badge displaying the number of questions per quiz, background color #1e1e1e, border 1px solid #333.
   - **Navigation:** Users can tap a quiz item to go to the "quiz detail screen".
 
-- Quiz Detail Screen:
+- **Quiz Detail Screen:**
   - Purpose: 
   - Content:
   - UI Elements:
-    - Back button with icon
-    - Quiz title
-    - Score info
-    - Progress info
-    - Hints used info
+    - Back button with left-arrow icon
+    - Screen title (Quiz title)
+    - Screen sub-title (Number of quiz questions)
+    - Label (Score info)
+    - Label (Progress info)
+    - Label (Hints used info)
     - Devider
-    - Question title
-    - Options - List of asnwer options
-      - Option - Single answer option button
-    - Show hint button
-      - has a less prominent style compared to answer buttons.
-    - Next question button
+    - Header or Section title (Question title)
+    - List of buttons (Options - List of asnwer options)
+      - Button (Single answer option)
+    - Button (Show hint)
+      - has a less prominent style compared to answer buttons.    
     - Hint text - Text of shown hint
-    - Result info
+    - Button (Next question)
+    - Header (Question result status - "Correct / Incorrect")
+    - Text (Question result detail - "Correct answer is...")
+    - Header (Quiz result status)
+    - Header (Quiz result score)
   - Navigation: Users can tap a back icon to go to the "home screen".
   
 
@@ -60,8 +64,12 @@ Home --> Profile --> Home
 
 ## Design / Style
 It includes details like color schemes (color palette), font choices, icon styles, and spacing rules.
-- **Responsive Design**: The app is designed to be mobile-friendly with a simple layout that works on small screens.
-- **Color palette (scheme)**: modern dark theme with primary colors centered around shades of purple.
+- Responsive Design
+  - The app is designed to be mobile-friendly with a simple layout that works on small screens.
+  - Small screens - mobile phones: main container has width 100% od the screen
+  - Bigger screens - tablet, desktop: max width of the main container is 600 px
+- Color palette (scheme):
+  - Default theme: dark theme
   - **Primary Color**: `#6c63ff` (This is used for primary actions like buttons and overlay buttons).
   - **Secondary Color**: `#5753c9` (Used on hover states for primary buttons).
   - **Background**:
@@ -77,18 +85,16 @@ It includes details like color schemes (color palette), font choices, icon style
 - **Minimal Dependencies**: The app is built with vanilla HTML, CSS, and JavaScript, with no external libraries or frameworks required.
 - SPA using "Fragmentation using HTML sections" - each screen (view) is in a separate <section> tag. When displaying a specific screen, hide the others and make the desired one visible. Use universal function "navigateToScreen(screenId)" to navigate between screens.
 - Define basic UI elements in CSS by classes. 
-- Use "CSS Custom Properties" for defining and using CSS variabls - main usage is for defining app's color palette. Example of the css code defining variables:
+- Use CSS Custom Properties to define and use CSS variables. The main purpose is to define colors in one place as variables and then apply these variables within the CSS code to style UI elements. Here's an example of CSS code defining variables:
   :root {
-    --primary-color: #6c63ff;
-    --secondary-color: #5753c9;  
-    --primary-bg-color: #121212; /*#1e1e1e*/
-    --secondary-bg-color: #2b2b2b;  
-    --primary-text-color: #e0e0e0; /*#fff;*/
-    --secondary-text-color: #e0e0e0; /*#9e9e9e*/
-    --inverse-text-color: #fff;  
-    --list-item-card-bg-color: #2b2b2b;
-    --list-item-card-bg-color-hover: #333;
-    --list-item-card-label-bg-color: #444;
+    /* Primary Colors */
+    --color-primary: #6c63ff; /* Main branding color */
+    --color-secondary: #5753c9; /* Hover or secondary actions */
+    
+    /* Background Colors */
+    --bg-main: #121212; /* Main background of the app */
+    --bg-secondary: #2b2b2b; /* Background for cards, input fields */
+    --bg-tertiary: #444; /* Background for badges, overlay elements */
   }
 - Folder and file structure:
   
