@@ -35,7 +35,6 @@ body {
     color: var(--text-main);
 }
 
-
 /* Utilities */
 .hidden {
     display: none;
@@ -44,7 +43,6 @@ body {
 .text-center {
   text-align: center;
 }
-
 
 /* UI elements */
 .screen-title {
@@ -58,12 +56,12 @@ body {
 }
 
 .section-title {
-    /*text-align: left;*/
-    color: var(-text-secondary);
-    font-size: 18px;
+    color: var(--text-secondary);
+    font-size: 15px;
     font-weight: bold;
-    margin-top: 20px;    
-    margin-bottom: 20px;    
+    margin-top: 15px;    
+    margin-bottom: 15px; 
+    text-align: left;   
 }
 
 .btn {
@@ -72,11 +70,28 @@ body {
     background-color: var(--bg-secondary);
     color: var(--text-secondary);
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--bg-secondary-hover);
+}
+
+.btn-outline {
+  margin: 5px 0;
+  width: 100%;
+  background: none;
+  border: 2px solid var(--bg-secondary);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-primary {
@@ -96,14 +111,25 @@ body {
 
 .btn-tertiary:hover {
     background-color: var(--bg-tertiary-hover);
-
 }
 
 .back-btn {
     cursor: pointer;
     margin-bottom: 10px;
-    display: inline-block;
+    /*display: inline-block;*/
     color: var(--text-main);
+    text-align: left;
+}
+
+.text {
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.text-list-item {
+  padding: 2px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--bg-secondary);
 }
 
 .card-list {
@@ -147,7 +173,6 @@ body {
 
 .card-title {
     font-size: 16px;
-    /*font-weight: bold;*/
 }
 
 .card-badge {
@@ -158,9 +183,9 @@ body {
     font-size: 14px;
 }
 
-.space {
-  min-height: 15px;
-  height: 15px;
+.h-space {
+  min-height: 20px;
+  height: 20px;
   padding: 0;
   margin: 0;
 }
@@ -173,12 +198,57 @@ body {
   color: var(--color-error);
 }
 
+.top-nav-bar-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-main);
+    margin-left: 10px;
+}
 
-/* Home screen */
+.top-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  color: var(--color-primary);
+  font-style: italic;
+}
+
+.text-input {
+  margin: 5px 0;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 14px;
+  min-width: 70px;
+}
 
 
+/* Home Screen */
+.topnav-xp {
+  display: inline;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  color: #64edcf;
+  padding-top: 7px;
+  margin-right: 5px;
+}
 
 /* Quiz Detail Screen */
 #quiz-detail-screen {
   text-align: center;
 }
+  
