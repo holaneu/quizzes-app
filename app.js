@@ -1,8 +1,8 @@
 let quizzes = [];
-let currentQuestion = 0;
-let score = 0;
-let hintsUsed = 0;
-let progress = [];
+let currentQuizQuestion = 0;
+let currentQuizScore = 0;
+let currentQuizHintsUsed = 0;
+let currentQuizProgress = [];
 let currentQuiz = null;
 
 // Universal function to navigate between screens
@@ -50,7 +50,7 @@ function startQuiz(quizIndex) {
 
 // Load current question
 function loadQuestion() {
-    const q = currentQuiz.questions[currentQuestion];
+    const q = currentQuiz.questions[currentQuizQuestion];
     document.getElementById('question').textContent = q.question;
     const options = document.getElementById('options');
     options.innerHTML = '';
@@ -58,98 +58,96 @@ function loadQuestion() {
         options.innerHTML += `<button class="btn" onclick="checkAnswer(${i})">${option}</button>`;
     });
     document.getElementById('hint').textContent = '';
-    document.getElementById('result').textContent = '';
-    document.getElementById('hint-btn').style.display = 'block';
-    document.getElementById('next-btn').style.display = 'none';
+    document.getElementById('result').innerHTML = ''; //textContent = '';
+    document.getElementById('hint-btn').classList.remove('hidden'); //.style.display = 'block';
+    document.getElementById('next-btn').classList.add('hidden'); //.style.display = 'none';
 }
 
 // Check selected answer
 function checkAnswer(choice) {
-    const q = currentQuiz.questions[currentQuestion];
+    const q = currentQuiz.questions[currentQuizQuestion];
     const resultDiv = document.getElementById('result');
     if (choice === q.answer) {
         resultDiv.innerHTML = `
-            <div class="msg-success">
-            Correct :-)
-            <div class="space"></div>
+            <div class="completion-status-banner status-success">
+              <div class="banner-title">Correct :-)</div>
+              <div class="banner-message">You are right, the answer is:</div>
+              <div class="banner-message">${q.options[q.answer]}</div>
             </div>
         `;
-        score++;
-        progress.push("✓");        
-        updateUserProfileStat('totalXPPoints', 1);
-        updateUserProfileStat('questionsCompletedCorrectly', 1);        
+        currentQuizScore++;
+        currentQuizProgress.push("✓");        
+        updateUserProfileStats('totalXPPoints', 1);
+        updateUserProfileStats('questionsCompletedCorrectly', 1);        
       
     } else {
-        resultDiv.innerHTML = `
-            <div class="msg-error">
-            Incorrect
-            <div class="space"></div>
-            The correct answer is:
-            <br>
-            ${q.options[q.answer]}
-            <div class="space"></div>
+        resultDiv.innerHTML = `            
+            <div class="completion-status-banner status-fail">
+              <div class="banner-title">Incorrect</div>
+              <div class="banner-message">The correct answer is:</div>
+              <div class="banner-message">${q.options[q.answer]}</div>              
             </div>
         `;
-        progress.push("✗");
+        currentQuizProgress.push("✗");
     }
     currentQuestionScored++;
     updateQuizInfo();
-    updateUserProfileStat('questionsCompleted', 1);
+    updateUserProfileStats('questionsCompleted', 1);
     document.getElementById('options').innerHTML = '';
-    document.getElementById('hint-btn').style.display = 'none';
+    document.getElementById('hint-btn').classList.add('hidden'); //.style.display = 'none';
     document.getElementById('hint').textContent = '';
-    document.getElementById('hint').style.display = 'none'; 
-    document.getElementById('next-btn').style.display = 'block';
+    document.getElementById('hint').classList.add('hidden'); //.style.display = 'none'; 
+    document.getElementById('next-btn').classList.remove('hidden'); //.style.display = 'block';
 }
 
 // Show hint for the current question
 function showHint() {
     const hintText = document.getElementById('hint');
-    hintText.textContent = currentQuiz.questions[currentQuestion].hint;
-    hintText.style.display = 'block';
-    hintsUsed++;
+    hintText.textContent = currentQuiz.questions[currentQuizQuestion].hint;
+    hintText.classList.remove('hidden'); //.style.display = 'block';
+    currentQuizHintsUsed++;
     updateQuizInfo();
-    document.getElementById('hint-btn').style.display = 'none';
+    document.getElementById('hint-btn').classList.add('hidden'); //.style.display = 'none';
 }
 
 // Load the next question
 function nextQuestion() {
-    currentQuestion++;
-    if (currentQuestion < currentQuiz.questions.length) {     
+    currentQuizQuestion++;
+    if (currentQuizQuestion < currentQuiz.questions.length) {     
       loadQuestion();
     } else {
       document.getElementById('question').textContent = "";
       document.getElementById('options').innerHTML = '';
-      document.getElementById('hint-btn').style.display = 'none';
-      document.getElementById('next-btn').style.display = 'none';
-      const quizScorePercent = Math.round((score / currentQuiz.questions.length) * 100);
+      document.getElementById('hint-btn').classList.add('hidden'); //.style.display = 'none';
+      document.getElementById('next-btn').classList.add('hidden'); //.style.display = 'none';
+      const quizScorePercent = Math.round((currentQuizScore / currentQuiz.questions.length) * 100);
       document.getElementById('result').innerHTML = `
-          <div class="msg-success">Quiz completed!</div>
-          <div class="space"></div>
-          Final score: ${score}/${currentQuiz.questions.length}
-          <br>
-          ${quizScorePercent} %
+          <div class="completion-status-banner status-neutral">
+            <div class="banner-title">You completed the quiz!</div>
+            <div class="banner-message">Your final score: ${currentQuizScore}/${currentQuiz.questions.length}</div>
+            <div class="banner-scorecard">${quizScorePercent} %</div>
+          </div>          
       `;
+      updateUserProfileStats('quizzesCompleted', 1);
       if (quizScorePercent >= 70) {
-        updateUserProfileStat('totalXPPoints', 2);
-        updateUserProfileStat('quizzesCompleted', 1); 
+        updateUserProfileStats('totalXPPoints', 2);         
       }      
     }
 }
 
 function updateQuizInfo() {
-    document.getElementById('score').textContent = `Score: ${score}/${currentQuestionScored}`;
-    document.getElementById('progress').textContent = `Progress: ${progress.join(" ")}`;
-    document.getElementById('hints-used').textContent = `Hints used: ${hintsUsed}`;
+    document.getElementById('score').textContent = `Score: ${currentQuizScore}/${currentQuestionScored}`;
+    document.getElementById('progress').textContent = `Progress: ${currentQuizProgress.join(" ")}`;
+    document.getElementById('hints-used').textContent = `Hints used: ${currentQuizHintsUsed}`;
 }
 
 // Reset quiz state
 function resetQuiz() {
-    currentQuestion = 0;
+    currentQuizQuestion = 0;
     currentQuestionScored = 0;
-    score = 0;
-    hintsUsed = 0;
-    progress = [];
+    currentQuizScore = 0;
+    currentQuizHintsUsed = 0;
+    currentQuizProgress = [];
     updateQuizInfo();            
 }
 
@@ -171,15 +169,16 @@ function loadUserProfileIntoUI() {
 
   if (profile) {
     document.getElementById("topbar-totalXPPoints").textContent = `${profile.totalXPPoints}`;
+    document.getElementById("topbar-currentLevel").textContent = `${profile.currentLevel}`;
 
     document.getElementById("info-name").textContent = `${profile.name}`;
     document.getElementById("stat-totalXPPoints").textContent = `${profile.totalXPPoints}`;
     document.getElementById("stat-currentLevel").textContent = `${profile.currentLevel}`;
-    document.getElementById("stat-totalScore").textContent = `${profile.totalScore}`;
-    document.getElementById("stat-quizzesCompleted").textContent = `${profile.quizzesCompleted.length}`;
+    document.getElementById("stat-totalScore").textContent = `${profile.totalScore} %`;
+    document.getElementById("stat-quizzesCompleted").textContent = `${profile.quizzesCompleted}`;
     document.getElementById("stat-questionsCompleted").textContent = `${profile.questionsCompleted}`;
     document.getElementById("stat-questionsCompletedCorrectly").textContent = `${profile.questionsCompletedCorrectly}`;
-    document.getElementById("stat-lastActiveDate").textContent = `${profile.lastActiveDate || "N/A"}`;
+    document.getElementById("stat-lastActiveDate").textContent = `${formatDateToCET(profile.lastActiveDate) || "N/A"}`;
 
     // Populate Achievements
     const achievementsList = document.getElementById("achievements-list");
@@ -216,8 +215,22 @@ if (!userProfile) {
   saveUserProfile(userProfile);
 }
 
+function formatDateToCET(dateString) {
+  const date = new Date(dateString);
+  const options = {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZone: 'Europe/Prague'
+  };
+  return date.toLocaleString('cs-CZ', options).replace(/,/, '');
+}
+
 // Universal function to update user profile statistics
-function updateUserProfileStat(statName, value) {
+function updateUserProfileStats(statName, value) {
   // Load the current profile from localStorage
   let profile = loadUserProfile();
 
@@ -249,8 +262,10 @@ function updateUserProfileStat(statName, value) {
       profile.totalScore = Math.round((profile.questionsCompletedCorrectly / profile.questionsCompleted) * 100);
   }
 
-  const calculatedLevel = Math.floor(profile.totalXPPoints / 20);
-  profile.currentLevel = calculatedLevel > 0 ? calculatedLevel : 1;
+  //const calculatedLevel = Math.floor(profile.totalXPPoints / 20);
+  profile.currentLevel = Math.floor(profile.totalXPPoints / 20) + 1; //calculatedLevel > 0 ? calculatedLevel : 1;
+
+  profile.lastActiveDate = new Date().toISOString();
 
   // Save the updated profile back to localStorage
   saveUserProfile(profile);
