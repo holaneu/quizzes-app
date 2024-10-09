@@ -11,75 +11,74 @@
 - **Multiple-choice questions**: Each question presents four possible answers, and the user selects one.
 - **Hints**: Users can request a hint for each question. The app keeps track of how many hints the user has used.
 - **Instant feedback**: After answering a question, users are informed if their answer was correct, along with the correct answer if they were wrong.
-- **Progress tracking**: The app tracks the user's score and displays progress for each question answered.
-- **Next question navigation**: Users move through questions one by one and can proceed to the next question after answering.
+- **Progress tracking**: The app tracks the user's score and displays progress for each question answered. Users also earn experience points (XP).
 - **Final score**: Upon completing the quiz, the user's final score is displayed.
-- **User-friendly interface**: Simple layout with buttons for selecting answers, requesting hints, and moving to the next question.
+- **Profile Management:** The app saves user profile data locally, allowing users to view achievements, current levels, and performance metrics.
+- **XP System and Levels:** The app includes an XP system where users earn XP for correct answers and quiz completions. XP contributes to leveling up and overall user progression.
+  - Users earn XP for each correct answer and for completing a quiz having at least 70% score.
+  - XP is accumulated, and once a certain threshold is reached, the user progresses to the next level.
+  - The XP thresholds for levels are calculated as follows: `Level = Math.floor(totalXPPoints / 20)`.
+  - The profile screen and XP scorecard on home screen are dynamically updated to reflect the user's current level and XP.
 
-### User Stories (? User Actions?)
-- **As a user** I want to:
-  - Answer a series of multiple-choice questions so that I can test my knowledge of a certain topic.
-  - Request a hint during a question to help me answer it if I’m unsure.
-  - Immediate feedback after I answer a question so that I know if I was correct.
-  - Track my progress so that I can see how well I am doing in the quiz.
-  - See my final score at the end of the quiz so that I know how many questions I got right.
+### User Actions (Stories)
+**As a user** I want to:
+- Answer a series of multiple-choice questions so that I can test my knowledge of a certain topic.
+- Request a hint during a question to help me answer it if I’m unsure.
+- Immediate feedback after I answer a question so that I know if I was correct.
+- Track my progress so that I can see how well I am doing in the quiz.
+- See my final score at the end of the quiz so that I know how many questions I got right.
 
 
 ## App Layout and UI Elements
-- **Home Screen:**  
-  - **Purpose:** Displays a list of quizes available.
-  - **Content:** List of all quizes available.
-  - **UI Elements**:
-    - App name as title
-    - List of items - Each item includes a badge displaying the number of questions per quiz, background color #1e1e1e, border 1px solid #333.
-  - **Navigation:** Users can tap a quiz item to go to the "quiz detail screen".
 
-- **Quiz Detail Screen:**
-  - **Purpose:** The Quiz Detail Screen provides users with an interactive environment to answer questions in a selected quiz, track their progress, view hints, and see immediate feedback on their answers.
-  - **Content:** This screen displays the quiz title, the number of questions, and the user's score, progress, and hints used. It dynamically loads each question, allows the user to select an answer, and gives instant feedback on whether the selected answer is correct. A hint can be displayed upon request, and users can navigate through the quiz until all questions are completed​​.
-  - **UI Elements:**
-    - Back button with left-arrow icon
-    - Screen title (Quiz title)
-    - Screen sub-title (Number of quiz questions)
-    - Label (Score info)
-    - Label (Progress info)
-    - Label (Hints used info)
-    - Devider
-    - Header or Section title (Question title)
-    - List of buttons (Options - List of asnwer options)
-      - Button (Single answer option)
-    - Button (Show hint)
-      - has a less prominent style compared to answer buttons.    
-    - Hint text - Text of shown hint
-    - Button (Next question)
-    - Header (Question result status - "Correct / Incorrect")
-    - Text (Question result detail - "Correct answer is...")
-    - Header (Quiz result status)
-    - Header (Quiz result score)
-  - **Navigation:** Users can tap a back icon to go to the "home screen".
+### **Home Screen:**  
+- **Purpose:** Displays a list of quizes available.
+- **Content:** List of all quizes available.
+- **UI Elements**:
+  - App name as title
+  - List of items - Each item includes a badge displaying the number of questions per quiz, background color #1e1e1e, border 1px solid #333.
+- **Navigation:** Users can tap a quiz item to go to the "quiz detail screen".
 
-- **Profile Screen:**  
-  - **Purpose:** 
-  - **Content:** 
-  - **UI Elements**:
-    - Back button with left-arrow icon
-    - Screen title (Profile)
-    - Label (Score info)
-    - Label (Progress info)
-    - Label (Hints used info)
-    - Devider
-    - Header or Section title (Question title)
-    - List of buttons (Options - List of asnwer options)
-      - Button (Single answer option)
-    - Button (Show hint)
-      - has a less prominent style compared to answer buttons.    
-    - Hint text - Text of shown hint
-    - Button (Next question)
-    - Header (Question result status - "Correct / Incorrect")
-    - Text (Question result detail - "Correct answer is...")
-    - Header (Quiz result status)
-    - Header (Quiz result score)
-  - **Navigation:** Users can tap a back icon to go to the "home screen".
+### **Quiz Detail Screen:**
+- **Purpose:** The Quiz Detail Screen provides users with an interactive environment to answer questions in a selected quiz, track their progress, view hints, and see immediate feedback on their answers.
+- **Content:** This screen displays the quiz title, the number of questions, and the user's score, progress, and hints used. It dynamically loads each question, allows the user to select an answer, and gives instant feedback on whether the selected answer is correct. A hint can be displayed upon request, and users can navigate through the quiz until all questions are completed​​.
+- **UI Elements:**
+  - Back button with left-arrow icon
+  - Screen title (Quiz title)
+  - Screen sub-title (Number of quiz questions)
+  - Label (Score info)
+  - Label (Progress info)
+  - Label (Hints used info)
+  - Devider
+  - Header or Section title (Question title)
+  - List of buttons (Options - List of asnwer options)
+    - Button (Single answer option)
+  - Button (Show hint)
+    - has a less prominent style compared to answer buttons.    
+  - Hint text - Text of shown hint
+  - Button (Next question)
+  - Header (Question result status - "Correct / Incorrect")
+  - Text (Question result detail - "Correct answer is...")
+  - Header (Quiz result status)
+  - Header (Quiz result score)
+- **Navigation:** Users can tap a back icon to go to the "home screen".
+
+### **Profile Screen:**  
+- **Purpose:** Displays the user's profile information, including statistics, achievements, and performance metrics.
+- **Content:** 
+  - **User Info Section:** Displays the user's name and XP points.
+  - **Statistics Section:** Shows various performance metrics, including total XP points, current level, total score percentage, quizzes completed, questions completed, questions completed correctly, and last active date.
+  - **Achievements Section:** Lists the achievements earned by the user.
+- **UI Elements**:
+  - Back button with left-arrow icon.
+  - Screen title (Profile).
+  - Section title (User info)
+  - Text item list (Name)
+  - Section title (Statistics)
+  - Text item list (XP points, level, score, etc.)
+  - Section title (Achievements)
+  - Card list (Achievements)
+- **Navigation:** Users can tap a back icon to go to the "home screen".
   
 
 ## Navigation Flow
@@ -87,7 +86,7 @@ Home --> Quiz detail --> Home
 Home --> Profile --> Home
 
 
-## Design / Style
+## Design and Style
 It includes details like color schemes (color palette), font choices, icon styles, and spacing rules.
 - Responsive Design
   - The app is designed to be mobile-friendly with a simple layout that works on small screens.
@@ -135,6 +134,9 @@ It includes details like color schemes (color palette), font choices, icon style
 Here's an example how to use custom properties. See the 
   
 - **Using "space ui elements"** to apply some kind of margins and spacing, especially horizontal. In case there needs to be some "horizontal space" added at the specific place between UI elements, rather then adding additional margins to the specific existing elements I prefer to add <div class"space"></div> to the HTML code to specify the "space" or "gap".
+- **Data Management and Storage:**
+  - The app stores user profile information locally in the browser's `localStorage`. This includes user statistics, XP points, achievements, and settings.
+  - Quiz data is fetched from the `quizzes-data.js` file and loaded dynamically when the app is initialized.
 - Folder and file structure:
   
 
