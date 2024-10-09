@@ -12,6 +12,11 @@
   --bg-secondary-hover: #373737; /* Hover version of secondary */
   --bg-tertiary: #444; /* Background for badges, overlay elements */
   --bg-tertiary-hover: #555; /* Hover version of tertiary */
+  --bg-status-neutral: #457981;
+  --bg-status-success: #73be85;
+  --bg-status-fail: #b1676e; /* Error or validation warning messages */
+  --bg-status-attention: #c0ac6e; /* Warning or caution */
+
   
    /* Text Colors */
   --text-main: #e0e0e0; /* Main text color */
@@ -44,6 +49,26 @@ body {
   text-align: center;
 }
 
+.status-neutral {
+  background-color: var(--bg-status-neutral);
+  color: white;
+}
+
+.status-success {
+  background-color: var(--bg-status-success);
+  color: white;
+}
+
+.status-fail {
+  background-color: var(--bg-status-fail);
+  color: white;
+}
+
+.status-attention {
+  background-color: var(--bg-status-attention);
+  color: white;
+}
+
 /* UI elements */
 .screen-title {
     text-align: center;
@@ -56,12 +81,32 @@ body {
 }
 
 .section-title {
-    color: var(--text-secondary);
-    font-size: 15px;
+    color: gray; /*var(--text-secondary);*/
+    font-size: 14px;
     font-weight: bold;
+    text-transform: uppercase;
     margin-top: 15px;    
-    margin-bottom: 15px; 
-    text-align: left;   
+    margin-bottom: 13px; 
+    text-align: left; 
+    letter-spacing: 2px; 
+}
+
+.header3 {
+  color: var(--text-secondary);
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 15px;    
+  margin-bottom: 15px; 
+  text-align: left;   
+}
+
+.question-header {
+  color: var(--color-primary);
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 15px;    
+  margin-bottom: 15px; 
+  text-align: center;   
 }
 
 .btn {
@@ -70,7 +115,7 @@ body {
     background-color: var(--bg-secondary);
     color: var(--text-secondary);
     border: none;
-    border-radius: 8px;
+    border-radius: 16px;
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
@@ -87,7 +132,7 @@ body {
   background: none;
   border: 2px solid var(--bg-secondary);
   color: var(--text-secondary);
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 10px;
   cursor: pointer;
   font-size: 16px;
@@ -97,6 +142,7 @@ body {
 .btn-primary {
     background-color: var(--color-primary);
     color: var(--text-main);
+    max-width: 400px;
 }
 
 .btn-primary:hover {
@@ -119,6 +165,11 @@ body {
     /*display: inline-block;*/
     color: var(--text-main);
     text-align: left;
+}
+
+.back-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 .text {
@@ -199,10 +250,12 @@ body {
 }
 
 .top-nav-bar-icon {
-    font-size: 24px;
+    /*font-size: 24px;*/
     cursor: pointer;
-    color: var(--text-main);
+    color: gray;
     margin-left: 10px;
+    height: 26px;
+    width: 26px;
 }
 
 .top-nav-bar {
@@ -220,8 +273,11 @@ body {
 }
 
 .logo {
-  color: var(--color-primary);
+  /*color: var(--color-primary);*/
   font-style: italic;
+  background: linear-gradient(to bottom, #C7B8EA, #6c5ce7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .text-input {
@@ -235,20 +291,72 @@ body {
   min-width: 70px;
 }
 
+.completion-status-banner {
+  /*background-color: var(--bg-status-neutral); */
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto; 
+  text-align: center;
+}
+
+.banner-title {
+  font-size: 24px; 
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.banner-message {
+  font-size: 16px; 
+  color: #f1f1f1;
+  margin-bottom: 20px;
+}
+
+.banner-scorecard {
+  font-size: 48px; 
+  font-weight: bold;
+  color: white;
+}
+
+.text-list-item span {
+  font-weight: bold;
+  color: var(--color-primary);
+  font-style: italic;
+}
+
+
 
 /* Home Screen */
-.topnav-xp {
+.status-card {
   display: inline;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   font-style: italic;
-  color: #64edcf;
-  padding-top: 7px;
+  padding: 3px 5px;;
   margin-right: 5px;
+  border-radius: 5px;
+}
+
+.status-level {
+  background-color: #64edcf;
+  color: #317d6c;
+  cursor: pointer;
+}
+
+.status-xp {
+  background-color: #d2d442;
+  color: #646521;
+  cursor: pointer;
 }
 
 /* Quiz Detail Screen */
 #quiz-detail-screen {
   text-align: center;
+}
+
+#quiz-info {
+  color:gray;
+  font-size: 14px;
 }
   
